@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <title>eCMS - Search Cars for Sale</title>
+</head>
+<body>
+
+<!--Thymeleaf placeholder for the page Content-->
+<th:block layout:fragment="content">
+<!--            <h3>Cars for Sale</h3>-->
+    <!--        <hr/>-->
+    <div class="row ">
+        <div class="">
+            <form class="search-form" method="GET" action="/ecarmanagement/car/search">
+                <div class="col-search-bar">
+                    <h3>Find cars near you   </h3>
+                </div>
+                <div class="col-search-bar">
+                    <div class="form-group">
+                        <select class="form-control" name="makeCode"
+                                id="makeCodeListPlaceHolderHONDA"
+                                aria-label="makeCodeListPlaceHolder"
+                        >
+                            <option selected="" value="">Any Make</option>
+                            <option th:each="makeItem : ${makes}" th:value="${makeItem.makeId}" th:text="${makeItem.makeName}"></option>
+
+                            <!--                            <optgroup label="Popular Makes">-->
+<!--                                <option value="ACURA">Acura</option>-->
+<!--                                <option value="AUDI">Audi</option>-->
+<!--                                <option value="BMW">BMW</option>-->
+<!--                                <option value="BUICK">Buick</option>-->
+<!--                                <option value="CAD">Cadillac</option>-->
+<!--                                <option value="CHEV">Chevrolet</option>-->
+<!--                                <option value="CHRY">Chrysler</option>-->
+<!--                                <option value="DODGE">Dodge</option>-->
+<!--                                <option value="FORD">Ford</option>-->
+<!--                                <option value="GENESIS">Genesis</option>-->
+<!--                                <option value="GMC">GMC</option>-->
+<!--                            </optgroup>-->
+                        </select>
+                        <span class="help-block">
+                                    <div id="findyourcar-example-make" class="text-sm">
+                                        <a href="https://ad.doubleclick.net/ddm/trackclk/N8334.8257.AUTOTRADER.COM2/B22110050.251906059;dc_trk_aid=434486652;dc_trk_cid=110534791;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=" >Ex: GMC</a>
+                                    </div>
+                                </span>
+                    </div>
+                </div>
+                <div class="col-search-bar">
+                    <div class="form-group">
+                        <select class="form-control" name="modelCode"
+                                id="modelCodeListPlaceHolder"
+                                aria-label="modelCodeListPlaceHolder" >
+                            <option selected="" value="">Any Model</option>
+                            <option th:each="carModel : ${carModels}" th:value="${carModel.carModelId}" th:text="${carModel.carModelName}"></option>
+
+                            <!--                            <optgroup label="Popular Models">-->
+<!--                                <option value="ACCORD">Accord</option>-->
+<!--                                <option value="CIVIC">Civic</option>-->
+<!--                                <option value="HONCLARITY">Clarity</option>-->
+<!--                                <option value="CRV">CR-V</option>-->
+<!--                                <option value="FIT">Fit</option>-->
+<!--                                <option value="HONHRV">HR-V</option>-->
+<!--                                <option value="INSIGHT">Insight</option>-->
+<!--                            </optgroup>-->
+                        </select>
+                        <span class="help-block">
+                                    <div id="findyourcar-example-model" class="text-sm">
+                                        <a href="https://ad.doubleclick.net/ddm/trackclk/N8334.8257.AUTOTRADER.COM2/B22110050.251906308;dc_trk_aid=434574928;dc_trk_cid=110535523;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua="
+                                        >Ex: Sierra</a>
+                                    </div>
+                                </span>
+                    </div>
+                </div>
+                <div class="col-search-bar">
+                    <div class="form-group">
+                        <input type="tel" name="zip"
+                               placeholder="ZIP Code" required="" class="form-control" id="zip" th:value="${zipCode}"
+                               aria-label="ZIP Code" />
+                    </div>
+                </div>
+                <div class="col-search-bar">
+                    <button id="search" type="submit" class="btn btn-primary btn-block ae-button"
+                    >Search</button>
+                    <!--                            <span class="help-block">-->
+                    <!--                                    <div id="searchcar-advance-model" class="text-sm">-->
+                    <!--                                        <a href="/ecarmanagement/car/search"-->
+                    <!--                                        >Advance Search</a>-->
+                    <!--                                    </div>-->
+                    <!--                            </span>-->
+                </div>
+            </form>
+        </div>
+    </div>
+    <h5> Found <span th:text="${searchResultTotal}"></span> results</h5>
+    <div class="card border-dark mb-3"  th:each="car : ${cars}">
+        <div class="card-header">
+<!--            <a th:href="@{'/ecarmanagement/car/detail/{carId}'(carId=${car.carId})}">-->
+                <span th:text="${car.condition.conditionName} + ' ' + ${car.make.makeName} + ' ' + ${car.carModel.carModelName} + ${car.year}"></span>
+<!--            </a>-->
+        </div>
+        <div class="card-body">
+            <h4 class="card-title"> Sale at price <span th:text="${#numbers.formatCurrency(car.price)}"></span></h4>
+            <p class="card-text">
+                <img th:src="${car.imagePath}" alt="Car Image" style="width:auto; height:300px;"/>
+<!--                <img data-cmp="inventoryImage" alt="Used 1999 Mercury Mountaineer 4WD - 519522335" title="Used 1999 Mercury Mountaineer 4WD" src="https://images.autotrader.com/borderscaler/408/306/2d363e/hn/c/5d8f174df0474d22bdbf916189676e81.jpg">-->
+            </p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Make: <span th:text="${car.make.makeName}"></span></li>
+                <li class="list-group-item">Model: <span th:text="${car.carModel.carModelName}"></span></li>
+                <li class="list-group-item">Style: <span th:text="${car.style.styleName}"></span></li>
+                <li class="list-group-item">Condition: <span th:text="${car.condition.conditionName}"></span></li>
+                <li class="list-group-item">Year: <span th:text="${car.year}"></span></li>
+                <li class="list-group-item">Mileage: <span th:text="${car.mileage}"></span></li>
+                <li class="list-group-item">Dealer: <span th:text="${car.dealer.name}"></span></li>
+            </ul>
+            <!--            <div class="row">-->
+            <!--                <div class="col-sm-4">-->
+            <!--                    </div>-->
+            <!--                <div class="col-sm-8">-->
+            <!--                    </div>-->
+            <!--            </div>-->
+        </div>
+    </div>
+<!--    <div class="card border-dark mb-3" >-->
+<!--        <div class="card-header"><a href="/ecarmanagement/car/detail">Used 1999 Mercury Mountaineer 4WD</a></div>-->
+<!--        <div class="card-body">-->
+<!--            <h4 class="card-title"> Sale at price $16,999</h4>-->
+<!--            <p class="card-text">-->
+<!--                <img data-cmp="inventoryImage" alt="Used 1999 Mercury Mountaineer 4WD - 519522335" title="Used 1999 Mercury Mountaineer 4WD" src="https://images.autotrader.com/borderscaler/408/306/2d363e/hn/c/5d8f174df0474d22bdbf916189676e81.jpg">-->
+<!--                Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+<!--&lt;!&ndash;            <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="col-sm-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="col-sm-8">&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="card border-dark mb-3" >-->
+<!--        <div class="card-header"><a href="/ecarmanagement/car/detail">Used 1999 Mercury Mountaineer 4WD</a></div>-->
+<!--        <div class="card-body">-->
+<!--            <h4 class="card-title">Sale at price $16,999</h4>-->
+<!--            <p class="card-text">-->
+<!--                <img data-cmp="inventoryImage" alt="Used 2018 Volkswagen Tiguan SEL - 522433106" title="Used 2018 Volkswagen Tiguan SEL" src="https://images.autotrader.com/borderscaler/408/306/2d363e/hn/c/b40b59f9b81040788afc0e7548e015c3.jpg">-->
+<!--                Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+<!--            &lt;!&ndash;            <div class="row">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div class="col-sm-4">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div class="col-sm-8">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="card border-dark mb-3" >-->
+<!--        <div class="card-header"><a href="/ecarmanagement/car/detail">Used 1999 Mercury Mountaineer 4WD</a></div>-->
+<!--        <div class="card-body">-->
+<!--            <h4 class="card-title">Sale at price $16,999</h4>-->
+<!--            <p class="card-text">-->
+<!--                <img data-cmp="inventoryImage"  alt="Used 2018 Toyota Camry XSE - 514198010" title="Used 2018 Toyota Camry XSE" src="https://images.autotrader.com/borderscaler/408/306/2d363e/hn/c/35d8122c28a9458abeff77341f8b5b3e.jpg">-->
+<!--                Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+
+<!--            &lt;!&ndash;            <div class="row">&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div class="col-sm-4">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div class="col-sm-8">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </div>&ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+</th:block>
+<!--End placeholder-->
+
+</body>
+</html>

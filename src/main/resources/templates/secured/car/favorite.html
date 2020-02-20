@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/auth-master-layout}">
+<head>
+    <title>eCarManagement</title>
+</head>
+<body>
+    
+
+    <th:block layout:fragment="content">
+        <div class="main-content">
+        <div>
+            <span style="font-size: 2em; color: #32a5e7;">Your favorite cars</span>
+
+        </div>
+        <hr />
+        <div style="font-size: 1em">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th> 
+                    <th scope="col">Make</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Style</th>
+                    <th scope="col">Condition</th> 
+                    <th scope="col">Year</th>
+                    <th scope="col">Price</th>  
+                    <th scope="col">Mileage</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car,iterStat : ${cars}">
+                    
+                    <th scope="row" th:text="${iterStat.count}"></th>
+                    <td><img th:src="${car.imagePath}" alt="Car Image" style="width:100px; height:auto;"></td>
+                    <td th:text="${car.make.makeName}"></td>
+                    <td th:text="${car.carModel.carModelName}"></td>
+                    <td th:text="${car.style.styleName}"></td>
+                    <td th:text="${car.condition.conditionName}"></td>
+                    <td th:text="${car.year}"></td>   
+                    <td th:text="${#numbers.formatCurrency(car.price)}"></td>
+                    <td th:text="${car.mileage}"></td>
+                </tr>
+                
+                <tr th:if="${carsCount < 1}">
+                    <td colspan="8" th:align="center">No Cars found</td>
+                </tr>               
+                </tbody>
+            </table>
+            <!-- Pagination -->
+             
+<!--            <div th:if="${carsCount > 0}">-->
+<!--                <ul class="pagination" >-->
+<!--                    <li class="page-item disabled">-->
+<!--                        <a class="page-link" href="#">Pages: </a>-->
+<!--                    </li>-->
+<!--                    <li th:each="i : ${#numbers.sequence(1, cars.totalPages)}"-->
+<!--                        th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">-->
+<!--                        <a th:href="@{/ecarmanagement/secured/car/list(pageno=${i-1})}"-->
+<!--                           th:text="${i}" class = "page-link"></a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+			
+        </div>
+        </div>
+    </th:block>
+    
+</body>
+</html>

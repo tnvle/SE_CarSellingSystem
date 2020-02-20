@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="Team5">
+    <link rel="icon" th:href="@{/ecarmanagement/public/images/car-icon.png}" >
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/ecarmanagement/public/css/master.css}">
+    <title>eCMS - Car Management System</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/ecarmanagement">eCMS <img class="display-inline-block display-lg-none icon-img"
+                                                                        th:src="@{/ecarmanagement/public/images/car-icon.png}" height="50px"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="navbarColor02">
+                <div class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto">
+                        <!--                    <li class="nav-item active">-->
+                        <!--                        <a class="nav-link" href="/ecarmanagement/dealer/list">Dealers</a>-->
+                        <!--                    </li>-->
+                        <!--                    <li class="nav-item">-->
+                        <!--                        <a class="nav-link" href="/ecarmanagement/car/list">Cars</a>-->
+                        <!--                    </li>-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="/ecarmanagement/about">About</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0 user-dropdown-bar">
+                        <a data-toggle="collapse" href="#collapseMenu" role="button" aria-expanded="false" aria-controls="collapseMenu">
+                            <span class="fa fa-user icon-user"></span><span class="caret"></span>
+                        </a>
+                        <div class="collapse user-popup" id="collapseMenu">
+                            <!--                        <div class="card card-body">-->
+                            <!--                            <div class="arrow" style="left: 6.53076%;"></div>-->
+                            <div >
+                                <ul class="nav dropdown-menu">
+<!--                                    <li>-->
+<!--                                        <a href="/ecarmanagement/car/favorite" class="btn btn-link" >My Saved Cars</a>-->
+<!--                                    </li>-->
+                                    <li>
+                                        <a href="/ecarmanagement/login" class="btn btn-outline-primary btn-same-width" >Sign In</a>
+                                    </li>
+                                    <li>
+                                        <a href="/ecarmanagement/signup" class="btn btn-outline-info btn-same-width" >Sign Up</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--                        </div>-->
+                        </div>
+                        <!--                    <span class="fa fa-user icon-user"></span>-->
+                        <!--                    <div id="header-badge-popover-menu" role="tooltip" class="popover-menu fade in popover bottom" style="display: block; top: 38px; left: 0px;">-->
+                        <!--                        <div class="arrow" style="left: 6.53076%;"></div>-->
+                        <!--                        <div class="popover-content">-->
+                        <!--                            <ul class="nav">-->
+                        <!--                                <li>-->
+                        <!--                                    <a class="disabled row display-block link-unstyled" role="button">-->
+                        <!--                                        <span class="col-xs-2 text-right">-->
+                        <!--                                            <span class="fa fa-car icon-user"></span>-->
+                        <!--                                        </span>-->
+                        <!--                                        <span class="col-xs-10 text-left">-->
+                        <!--                                            My Saved Cars (0)</span>-->
+                        <!--                                    </a>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                            <hr class="margin-vertical-1">-->
+                        <!--                            <ul class="nav">-->
+                        <!--                                <li>-->
+                        <!--                                    <a href="/ecarmanagement/login" type="button" class="margin-top-2 btn btn-primary btn-block ae-button" >Sign In</a>-->
+                        <!--                                </li>-->
+                        <!--                                <li>-->
+                        <!--                                    <a href="/ecarmanagement/signup" class="margin-top-2 btn btn-default btn-block ae-button" >Sign Up</a>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                        <!--                    <a style="color: #ffffff; margin-right: 0em;" class="nav-link" href="#">John Doe</a>-->
+                        <!--                    <input class="form-control mr-sm-2" type="text" placeholder="Search">-->
+                                            <a href="/ecarmanagement/login"  class="btn btn-secondary">Sign In</a>
+                        <!--                    <a href="/ecarmanagement/signup"  class="btn btn-secondary">Sign Up</a>-->
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!--<nav class="navbar navbar-expand-lg navbar-dark bg-primary">-->
+<!--    <a style="padding-right: 2em;" class="navbar-brand" href="/ecarmanagement/home">eCMS <img class="display-inline-block display-lg-none icon-img"-->
+<!--                                                                   th:src="@{/images/car-icon.png}" height="50px"></a>-->
+
+
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"-->
+<!--            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+
+<!--    <div class="collapse navbar-collapse" id="navbarColor01">-->
+<!--        <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">-->
+<!--                <a class="nav-link" href="/ecarmanagement/dearler/list">Dealers</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item" style="border-left: white 1px solid; padding-left: 2em; padding-right: 2em;">-->
+<!--                <a class="nav-link" href="/ecarmanagement/car/list">Cars</a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--        <form class="form-inline my-2 my-lg-0">-->
+<!--            <span style="color:#fff;padding-left: 2em; padding-right: 1em;">Welcome, Guest</span>-->
+<!--            &lt;!&ndash;<a style="color: #ffffff; margin-right: 0em;" class="nav-link" href="#">John Doe</a>&ndash;&gt;-->
+<!--            &lt;!&ndash;<input class="form-control mr-sm-2" type="text" placeholder="Search">&ndash;&gt;-->
+<!--            <a href="#" class="btn btn-secondary">Sign In</a>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</nav>-->
+
+
+<div class="container master-content">
+    <!--Thymeleaf placeholder for the page Content-->
+    <th:block layout:fragment="content"></th:block>
+    <!--End placeholder-->
+</div>
+
+<footer class="footer bg-dark">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-6">
+                    <span >Group 5 : : : CS425-SWE</span></div>
+                <div class="col col-md-6 right-text">
+                    <span >&copy; August 2019</span></div>
+            </div>
+            <div class="icon-bar">
+                <div role="toolbar" class="margin-horizontal-sm btn-toolbar">
+                    <a href="https://www.facebook.com/" class="btn btn-link" >
+                        <span class="fa fa-facebook"></span>
+                        <span class="ae-compliance-indent ae-reader-visible" style="display: none;">Facebook Social Network</span>
+                    </a>
+                    <a href="https://www.twitter.com/" class="btn btn-link" >
+                        <span class="fa fa-twitter"></span>
+                        <span class="ae-compliance-indent ae-reader-visible" style="display: none;">Twitter Social Network</span>
+                    </a>
+                    <a href="https://www.youtube.com/" class="btn btn-link">
+                        <span class="fa fa-youtube"></span>
+                        <span class="ae-compliance-indent ae-reader-visible" style="display: none;">YouTube Video</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+</html>

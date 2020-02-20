@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{public/layouts/master-layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{ecarmanagement/public/css/home/index.css}"/>
+    <title>The eCarmanagement - Virtual Tour</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <h3>Virtual Tour</h3>
+    <hr/>
+    <div>
+        <p>Panoramic views and knowledge fountains</p>
+        <img th:src="@{/public/images/panoramic.png}"/><br/>
+        <p>Already have access? Then, simply <a href="/ecarmanagement/public/home/login">Sign-In.</a></p>
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

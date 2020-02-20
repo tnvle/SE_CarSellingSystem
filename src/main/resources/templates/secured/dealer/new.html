@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/auth-master-layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dealer/dealer.css}"/>
+    <title>eCarManagement - Dealer Registration Form</title>
+</head>
+<body> <!--onload="document.querySelector('#dealerNumber').focus();"-->
+    <th:block layout:fragment="content">
+        <form id="dealerRegistrationForm" method="post" action="/ecarmanagement/secured/dealer/new" th:object="${dealer}">
+            <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+            <fieldset>
+                <legend>New Dealer Registration Form</legend>
+                <div class="container" style="margin-top: 1em;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" name="dealerId" th:value="${dealer.dealerId}"/>
+                            <div class="form-group">
+                                <label for="dealerNumber">Dealer Number:</label>
+                                <span th:if="${#fields.hasErrors('dealerNumber')}" th:errors="*{dealerNumber}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="1" id="dealerNumber" name="dealerNumber" type="text" class="form-control" value=""
+                                       th:value="${dealer.dealerNumber}" required autofocus/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="2" id="name" name="name" type="text" class="form-control" th:value="${dealer.name}" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email Address:</label>
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="3" id="email" name="email" type="email" class="form-control"
+                                       aria-describedby="emailAddressHelp" th:value="${dealer.email}" required/>
+                                <small id="emailAddressHelp" class="form-text text-muted">Enter a valid email</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="3" id="password" name="password" type="password" class="form-control"
+                                       aria-describedby="emailAddressHelp" th:value="${dealer.password}" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number:</label>
+                                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="5" id="phoneNumber" name="phoneNumber" type="tel" class="form-control"
+                                       aria-describedby="phoneNumberHelp" th:value="${dealer.phoneNumber}" required/>
+                                <small id="phoneNumberHelp" class="form-text text-muted">Enter a valid phone number in the format, (123) 456-7890</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="website">Website:</label>
+                                <span th:if="${#fields.hasErrors('website')}" th:errors="*{website}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="6" id="website" name="website" type="text" class="form-control" th:value="${dealer.website}"/>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+                                      class="alert alert-danger"></span>
+                                <input tabindex="7" id="address" name="address" type="text" class="form-control" th:value="${dealer.address}" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div>&nbsp;</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="text-align: right;">
+                                <button tabindex="8" id="btnReset" type="reset" class="btn btn-outline-info" style="margin-right: 2em;">Reset</button>
+                                <a tabindex="9" href="/ecarmanagement/secured/dealer/list" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                                <button tabindex="10" id="btnSubmit" type="submit" class="btn btn-outline-primary">Register Dealer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

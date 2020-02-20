@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <title>eCMS - Search Cars for Sale</title>
+</head>
+<body>
+
+<!--Thymeleaf placeholder for the page Content-->
+<th:block layout:fragment="content">
+    <h3>Car details</h3>
+    <p><a th:href="@{'/ecarmanagement/car/search'(makeCode=${car.make.makeId}, modelCode=${car.carModel.carModelId}, zip=${car.zipCode})}">
+<!--            href="/ecarmanagement/car/search?makeCodeListPlaceHolder=&modelCodeListPlaceHolder=&zip=52556">-->
+        Back to search result</a></p>
+            <hr/>
+    <div class="card mb-3">
+        <h3 class="card-header"><span th:text="${car.condition.conditionName} + ' ' + ${car.make.makeName} + ' ' + ${car.carModel.carModelName} + ${car.year}"></span></h3>
+        <div class="card-body">
+            <h5 class="card-title">Sale price: <span th:text="${#numbers.formatCurrency(car.price)}"></span></h5>
+            <h6 class="card-subtitle text-muted">Dealer: <span ></span></h6>
+        </div>
+        <img th:src="${car.imagePath}" alt="Car Image" style="height:auto; width:300px;"/>
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Make: <span th:text="${car.make.makeName}"></span></li>
+            <li class="list-group-item">Model: <span th:text="${car.carModel.carModelName}"></span></li>
+            <li class="list-group-item">Style: <span th:text="${car.style.styleName}"></span></li>
+            <li class="list-group-item">Condition: <span th:text="${car.condition.conditionName}"></span></li>
+            <li class="list-group-item">Year: <span th:text="${car.year}"></span></li>
+            <li class="list-group-item">Mileage: <span th:text="${car.mileage}"></span></li>
+        </ul>
+        <div class="card-body">
+            <a th:href="@{'/ecarmanagement/car/save/' + ${car.carId}}"
+               sec:authorize="hasRole('ROLE_USER')" class="card-link"><span class="fa fa-heart" >Save car</span></a>
+<!--            <a href="#" class="card-link">View detail</a>-->
+        </div>
+        <div class="card-footer text-muted">
+            Uploaded <span th:text="${car.uploadDate}"></span>
+        </div>
+    </div>
+</th:block>
+<!--End placeholder-->
+
+</body>
+</html>

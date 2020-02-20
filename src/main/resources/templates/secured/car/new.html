@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="~{layouts/auth-master-layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="O. Kalu">
+    <link rel="icon" href="favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/master.css}">
+    <title>eCarManagement</title>
+</head>
+<body>
+    
+    <th:block layout:fragment="content">
+        <div style="margin-bottom: 1em;">
+            <span style="font-size: 2em; color: #32a5e7;">New Car Registration Form</span>
+        </div>
+
+        <form id="newCarForm" method="post" action="/ecarmanagement/secured/car/new" th:object="${car}" enctype="multipart/form-data">
+            <input type="hidden" th:attr="name=${_csrf.parameterName},value=${_csrf.token}"/>
+            <fieldset>
+                <input type="hidden" name="carId" th:value="${car.carId}"/>
+                <div sec:authorize="hasRole('ROLE_ADMIN')" class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+		                    <label for="make">Dealer:</label>
+		                    <span th:if="${#fields.hasErrors('dealer')}" th:errors="*{dealer}"
+		                          class="alert alert-danger"></span>
+		                    <select name="dealer" id="dealer" class="form-control" required="required" autofocus>
+		                        <option value="">Select a dealer</option>
+		                        <option th:each="dealer : ${dealers}" th:value="${dealer.dealerId}" th:text="${dealer.dealerNumber} + '-' + ${dealer.email}"></option>
+		                    </select>
+		                </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+		                    <label for="make">Make:</label>
+		                    <span th:if="${#fields.hasErrors('make')}" th:errors="*{make}"
+		                          class="alert alert-danger"></span>
+		                    <select name="make" id="make" class="form-control" required="required" autofocus>
+		                        <option value="">Select a make</option>
+		                        <option th:each="make : ${makes}" th:value="${make.makeId}" th:text="${make.makeName}"></option>
+		                    </select>
+		                </div>
+                    </div> 
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+		                    <label for="carModel">Model:</label>
+		                    <span th:if="${#fields.hasErrors('carModel')}" th:errors="*{carModel}"
+		                          class="alert alert-danger"></span>
+		                    <select name="carModel" id="carModel" class="form-control" required="required" autofocus>
+		                        <option value="">Select a Model</option>
+		                        <option th:each="carModel : ${carModels}" th:value="${carModel.carModelId}" th:text="${carModel.carModelName}"></option>
+		                    </select>
+		                </div>
+                    </div>                     
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+		                    <label for="style">Style:</label>
+		                    <span th:if="${#fields.hasErrors('style')}" th:errors="*{style}"
+		                          class="alert alert-danger"></span>
+		                    <select name="style" id="style" class="form-control" required="required" autofocus>
+		                        <option value="">Select a style</option>
+		                        <option th:each="style : ${styles}" th:value="${style.styleId}" th:text="${style.styleName}"></option>
+		                    </select>
+		                </div>
+                    </div> 
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+		                    <label for="condition">Condition:</label>
+		                    <span th:if="${#fields.hasErrors('condition')}" th:errors="*{condition}"
+		                          class="alert alert-danger"></span>
+		                    <select name="condition" id="condition" class="form-control" required="required" autofocus>
+		                        <option value="">Select a condition</option>
+		                        <option th:each="condition : ${conditions}" th:value="${condition.conditionId}" th:text="${condition.conditionName}"></option>
+		                    </select>
+		                </div>
+                    </div>                 
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+		                    <label for="year">Year:</label>
+		                    <span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"
+		                          class="alert alert-danger"></span>
+		                    <select name="year" id="year" class="form-control" required="required" autofocus>
+		                        <option value="">Select a year</option>
+		                        <option th:each="year : ${#numbers.sequence(1990, #dates.year(#dates.createNow()))}" th:value="${year}" th:text="${year}"></option>
+		                    </select>
+		                </div>
+                    </div> 
+                    <div class="col-md-6">
+                        <div class="form-group">
+		                    <label for="price">Price:</label>
+		                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+		                          class="alert alert-danger"></span>
+		                    <input id="price" name="price" type="text" class="form-control" th:value="${car.price}" required="required">
+		                </div>
+                    </div>
+                    
+                                        
+                </div>
+                
+                <div class="row">
+                	<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="mileage">Mileage:</label>
+                            <span th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}"
+                                  class="alert alert-danger"></span>
+                            <input id="mileage" name="mileage" type="text" class="form-control" th:value="${car.mileage}" required="required">
+                        </div>
+                    </div> 
+                    
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="imagePath">Upload image:</label>
+                            <span th:if="${#fields.hasErrors('imagePath')}" th:errors="*{imagePath}"
+                                  class="alert alert-danger"></span>
+                            <input type="file" name="carImg" required="required" />                            
+                        </div>
+                    </div> 
+                    
+                    
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="zipCode">Zipcode:</label>
+                            <span th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"
+                                  class="alert alert-danger"></span>
+                            <input id="zipCode" name="zipCode" type="text" class="form-control" th:value="${car.zipCode}" required="required">
+                        </div>
+                    </div>
+                </div>
+
+                    <div style="float:right;">
+                    <a href="/ecarmanagement/secured/car/list" class="btn btn-outline-warning">Cancel</a>&nbsp;&nbsp;&nbsp;
+                    <button id="btnSubmit" type="submit" class="btn btn-outline-success">Add Car</button>
+                </div>
+            </fieldset>
+        </form>
+    </th:block>
+
+    
+</body>
+</html>

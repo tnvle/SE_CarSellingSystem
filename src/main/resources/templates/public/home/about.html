@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/public/css/home/index.css}"/>
+    <title>eCMS - About</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div style="font-size: 1em">
+        <h5>Members:</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Thanh Tuyen Le</li>
+            <li class="list-group-item">Thi Nhat Van Le</li>
+            <li class="list-group-item">Nu Anh Thu Truong</li>
+        </ul>
+        <hr/>
+
+        <h3>About the eCMS</h3>
+        <p>Cars Management System is a leading two-sided digital automotive marketplace that creates meaningful
+            connections between buyers and dealers. To become a pioneer in online automotive classifieds, the company
+            has evolved into one of the largest digital automotive platforms, connecting thousands of local dealers
+            across the country with millions of consumers, the company needs to build a new system in order to support
+            larger number of users connections.</p>
+
+        <p>The system offers services that help consumers buy cars or research car purchase. For those looking to buy
+            a car, the site offers listings of new and used vehicles for sale from dealers. It can search for cars
+            through many categories: make and model, price range, style, drive type (automatic or manual), engine type,
+            color (exterior and interior), mileage and number of doors. Consumers choose their favourite cars and can
+            save them if log in to the system. They can view the list of saved cars or unsaved the cars they don’t want
+            to buy or view later.</p>
+
+        <p>Those looking to buy a car from a dealer can ask for offers from their local area. After taking their car to
+            the dealer to verify its condition, the buyer may then buy the car from the dealer for the offered price.</p>
+
+        <p>The administrator can manage dealers’ information and help to verify their profiles. The administrator can
+            also add, update and delete cars information for dealers.</p>
+
+        <p>Dealers can manage their cars information including add, update, delete their cars. They cannot be able to
+            modify cars’s information of other dealers.</p>
+
+    </div>
+</th:block>
+
+<th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

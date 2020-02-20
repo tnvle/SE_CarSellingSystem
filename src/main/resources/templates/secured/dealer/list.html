@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/auth-master-layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/dealer/dealer.css}"/>
+    <title>eCarManagement - Dealers</title>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div>
+            <span style="font-size: 1.5em">List of All Registered Dealers</span>
+            <span style="float:right;">
+                    <a class="btn btn-outline-primary btn-lg" href="/ecarmanagement/secured/dealer/new">Register a New Dealer</a>
+                </span>
+        </div>
+        <!-- Search panel -->
+        <form id="searchDealerForm" method="get" action="/ecarmanagement/secured/dealer/search">
+            <div style="margin-top:1em;" class="row">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="searchString" name="searchString" placeholder="Enter a string to search for dealers" th:value="${searchString}" autofocus />
+                        <div class="input-group-append">
+                            <button id="btnSubmit" type="submit" class="btn btn-outline-success">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <p>&nbsp;</p>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Dealer Number</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Address</th>
+                <th scope="col">Website</th>
+                <td></td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Alternative non-obstrusive js solution for <tr onclick>:
+                HTML markup: <tr data-href="some-url">
+                JS function using JQuery: $('tr[data-href]').on("click", function() {
+                                            document.location = $(this).data('href');
+                                        });
+             -->
+            <!--<tr class="datarow" th:each="product,iterStat : ${products}" th:onclick="@{document.location='/prodmgmt/products/edit/{productId}'(productId=${product.productId})}">-->
+            <tr class="datarow" th:each="dealer,iterStat : ${dealers}" th:onclick="@{document.location='#'}">
+                <th scope="row" th:text="${iterStat.count}+'.'"></th>
+                <td th:text="${dealer.dealerNumber}"></td>
+                <td th:text="${dealer.name}"></td>
+                <td th:text="${dealer.email}"></td>
+                <td th:text="${dealer.phoneNumber}"></td>
+                <td th:text="${dealer.address}"></td>
+                <td th:text="${dealer.website}"></td>
+
+                <td><a th:href="@{'/ecarmanagement/secured/dealer/edit/{dealerId}'(dealerId=${dealer.dealerId})}">Edit</a></td>
+                <td>
+                    <a data-toggle="modal" data-target="#confirmDeleteDealerModal" th:href="@{'/ecarmanagement/secured/dealer/delete/' + ${dealer.dealerId}}"
+                       th:attr="data-target='#confirmDeleteDealerModal'+${dealer.dealerId}">
+                                            <span class="glyphicon glyphicon-trash" data-toggle="tooltip"
+                                                  data-placement="top" title="Delete"></span>Delete</a>
+                </td>
+
+                <!-- Modal -->
+                <!-- <div class="modal fade" id="confirmDeleteDealerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"> -->
+                <div class="modal fade confirmDeleteDealerModal" th:id="confirmDeleteDealerModal+${dealer.dealerId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you wish to delete this dealer data?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <a th:href="@{'/ecarmanagement/secured/dealer/delete/' + ${dealer.dealerId}}">
+                                    <button type="button" class="btn btn-primary">Yes</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            <tr th:if="${dealersCount < 1}">
+                <td colspan="8" th:align="center">No dealers found</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr/>
+        <!-- Pagination -->
+        <div>
+            <ul th:if="${dealersCount >= 1}" class="pagination">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Pages: </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, dealers.totalPages)}"
+                    th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">
+                    <a th:href="@{/ecarmanagement/secured/dealer/list(pageno=${i-1})}"
+                       th:text="${i}" class = "page-link"></a>
+                </li>
+            </ul>
+        </div>
+    <!--
+        <ul class="nav nav-pills"><span class="disabled">Pages:&nbsp;</span>
+            <li class="nav-item" th:each="i : ${#numbers.sequence(1, dealers.totalPages)}">
+                <a th:href="@{/midwestenbank/secure/dealers/list(pageno=${i-1})}"
+                   th:text="${i}" th:classappend="${currentPageNo}==${i-1}?'nav-link active':'nav-link'"></a>
+            </li>
+        </ul> -->
+    </th:block>
+
+    <th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>

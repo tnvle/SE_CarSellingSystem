@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorate="~{layouts/auth-master-layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <meta name="author" content="O. Kalu">
+    <link rel="icon" href="favicon.ico">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.2/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-EmRcsPP774S9MOi4ywB+JXUWjYnBdyInMzG2XsC5siZEUpexqxOMJW358dCYEjPu" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/master.css}">
+    <title>eCarManagement</title>
+</head>
+<body>
+    
+
+    <th:block layout:fragment="content">
+        <div>
+            <span style="font-size: 2em; color: #32a5e7;">Cars in our System</span>
+            <!-- 
+            <div>
+            	<select name="make" id="make" class="form-control" required="required" autofocus>
+                    <option value="">Select a make</option>
+                    <option th:each="make : ${makes}" th:value="${make.makeId}" th:text="${make.makeName}"></option>
+                </select>
+            </div>
+             -->
+            <span style="float:right;">
+                <a class="btn btn-outline-success btn-lg" href="/ecarmanagement/secured/car/new">Add New Car</a>
+            </span>
+        </div>
+        
+        
+		
+        <p>&nbsp;</p>
+        <div style="font-size: 1em">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Image</th> 
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" scope="col">Dealer</th>
+                    <th scope="col">Make</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Style</th>
+                    <th scope="col">Condition</th> 
+                    <th scope="col">Year</th>
+                    <th scope="col">Price</th>  
+                    <th scope="col">Mileage</th>
+                    <th scope="col">ZipCode</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                                                       
+                    
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car,iterStat : ${cars}">
+                    
+                    <th scope="row" th:text="${iterStat.count}"></th>
+                    <td><img th:src="${car.imagePath}" alt="Car Image" style="width:100px; height:auto;"></td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')" th:text="${car.dealer.dealerNumber} + '-' + ${car.dealer.email}"></td>
+                    <td th:text="${car.make.makeName}"></td>
+                    <td th:text="${car.carModel.carModelName}"></td>
+                    <td th:text="${car.style.styleName}"></td>
+                    <td th:text="${car.condition.conditionName}"></td>
+                    <td th:text="${car.year}"></td>   
+                    <td th:text="${#numbers.formatCurrency(car.price)}"></td>
+                    <td th:text="${car.mileage}"></td>
+                    <td th:text="${car.zipCode}"></td>
+                    
+                    
+                    <td><a th:href="@{'/ecarmanagement/secured/car/edit/{carId}'(carId=${car.carId})}">Edit</a></td>
+                    <td>                        
+                        <a data-toggle="modal" th:href="@{'/ecarmanagement/secured/car/delete/' + ${car.carId}}" th:attr="data-target='#confirmDeleteCarModal'+${car.carId}">Delete</a>
+							
+                    </td>                    
+                    
+                    <!-- Modal -->				    
+				    <div class="modal fade" th:id="confirmDeleteCarModal+${car.carId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				        <div class="modal-dialog modal-dialog-centered" role="document">
+				            <div class="modal-content">
+				                <div class="modal-header">
+				                    <h5 class="modal-title" id="exampleModalCenterTitle">Confirm Delete</h5>
+				                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                        <span aria-hidden="true">&times;</span>
+				                    </button>
+				                </div>
+				                <div class="modal-body">
+				                    Are you sure you wish to delete this car?
+				                </div>
+				                <div class="modal-footer">
+				                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+				                    <a th:href="@{'/ecarmanagement/secured/car/delete/' + ${car.carId}}">
+				                    	<button type="button" class="btn btn-primary">Yes</button>
+				                    </a>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+                </tr>                
+                
+                <tr th:if="${carsCount < 1}">
+                    <td colspan="12" th:align="center">No Cars found</td>
+                </tr>               
+                </tbody>
+            </table>
+            <!-- Pagination -->
+             
+            <div th:if="${carsCount > 0}">
+                <ul class="pagination" >
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Pages: </a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, cars.totalPages)}"
+                        th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'">
+                        <a th:href="@{/ecarmanagement/secured/car/list(pageno=${i-1})}"
+                           th:text="${i}" class = "page-link"></a>
+                    </li>
+                </ul>
+            </div>
+			
+        </div>
+    </th:block>
+    
+</body>
+</html>

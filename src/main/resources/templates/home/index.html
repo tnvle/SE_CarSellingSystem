@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master-layout}">
+<head>
+    <title>eCMS - Home</title>
+</head>
+<body>
+
+    <!--Thymeleaf placeholder for the page Content-->
+    <th:block layout:fragment="content">
+<!--        <h3>Welcome to the eCMS - Car Management System</h3>-->
+<!--        <hr/>-->
+        <div class="content-text">
+            <div class="row ">
+                <div class="">
+                    <form class="search-form">
+                        <div class="col-search-bar">
+                            <h3>Find cars near you   </h3>
+                        </div>
+                        <div class="col-search-bar">
+                            <div class="form-group">
+                                <select class="form-control" name="makeCodeListPlaceHolder"
+                                        id="makeCodeListPlaceHolderHONDA"
+                                        aria-label="makeCodeListPlaceHolder"
+                                        >
+                                    <option selected="" value="">Any Make</option>
+                                    <optgroup label="Popular Makes">
+                                        <option value="ACURA">Acura</option>
+                                        <option value="AUDI">Audi</option>
+                                        <option value="BMW">BMW</option>
+                                        <option value="BUICK">Buick</option>
+                                        <option value="CAD">Cadillac</option>
+                                        <option value="CHEV">Chevrolet</option>
+                                        <option value="CHRY">Chrysler</option>
+                                        <option value="DODGE">Dodge</option>
+                                        <option value="FORD">Ford</option>
+                                        <option value="GENESIS">Genesis</option>
+                                        <option value="GMC">GMC</option>
+                                    </optgroup>
+                                </select>
+                                <span class="help-block">
+                                    <div id="findyourcar-example-make" class="text-sm">
+                                        <a href="https://ad.doubleclick.net/ddm/trackclk/N8334.8257.AUTOTRADER.COM2/B22110050.251906059;dc_trk_aid=434486652;dc_trk_cid=110534791;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=" >Ex: GMC</a>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-search-bar">
+                            <div class="form-group">
+                                <select class="form-control" name="modelCodeListPlaceHolder"
+                                        id="modelCodeListPlaceHolder"
+                                        aria-label="modelCodeListPlaceHolder" >
+                                    <option selected="" value="">Any Model</option>
+                                    <optgroup label="Popular Models">
+                                        <option value="ACCORD">Accord</option>
+                                        <option value="CIVIC">Civic</option>
+                                        <option value="HONCLARITY">Clarity</option>
+                                        <option value="CRV">CR-V</option>
+                                        <option value="FIT">Fit</option>
+                                        <option value="HONHRV">HR-V</option>
+                                        <option value="INSIGHT">Insight</option>
+                                    </optgroup>
+                                </select>
+                                <span class="help-block">
+                                    <div id="findyourcar-example-model" class="text-sm">
+                                        <a href="https://ad.doubleclick.net/ddm/trackclk/N8334.8257.AUTOTRADER.COM2/B22110050.251906308;dc_trk_aid=434574928;dc_trk_cid=110535523;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua="
+                                           >Ex: Sierra</a>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-search-bar">
+                            <div class="form-group">
+                                <input type="tel" name="zip"
+                                       placeholder="ZIP Code" required="" class="form-control" id="zip52556" value="52556"
+                                       aria-label="ZIP Code" />
+                            </div>
+                        </div>
+                        <div class="col-search-bar">
+                            <button id="search" type="submit" class="btn btn-primary btn-block ae-button"
+                                    >Search</button>
+                            <span class="help-block">
+                                    <div id="searchcar-advance-model" class="text-sm">
+                                        <a href="/carmanagement/car/search"
+                                        >Advance Search</a>
+                                    </div>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <img th:src="@{/images/sierra_1024x475_v1.jpg}" alt="banner"/><br/><br/>
+<!--            <p>We are a top-flight, fully-digitized library.-->
+<!--                Find out more <a href="/banking/about">about us</a> and-->
+<!--                and learn how we can serve you with the widest variety of students and lots of other-->
+<!--                digital content, all for your education as well as your entertainment.-->
+<!--                You can also <a href="/banking/virtualtour">take a virtual tour</a>,-->
+<!--                of our world-class facilities and be amazed at all what we have in stock-->
+<!--                for you, your family and friends.</p>-->
+<!--            <p>To browse and manage the <a href="/banking/customer/list">catalogue of Students</a>, please first make sure to read-->
+<!--                the-->
+<!--                instructions and key points provided below. And then click the-->
+<!--                appropriate menu item, located on the menu-bar above.<br/><br/>-->
+                <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text
+                ever since the 1500s, when an unknown printer took a galley of type
+                and scrambled it to make a type specimen student.</p>
+        </div>
+    </th:block>
+    <!--End placeholder-->
+
+</body>
+</html>
